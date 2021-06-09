@@ -10,6 +10,14 @@ interface IConnectionCreate {
 }
 
 class ConnectionsService {
+  async findAllWithoutAdmin() {
+    const connections = await this.connectionsRepository.find({
+      where: { admin_id: null },
+      relations: ["user"],
+    });
+
+    return connections;
+  }
   private connectionsRepository: Repository<Connection>;
 
   constructor() {
